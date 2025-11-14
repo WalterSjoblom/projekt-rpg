@@ -1,2 +1,7 @@
 # detta är ett spel
-hej
+#hej
+#mupp
+
+ghhfgff
+#xczczc
+#hej
