@@ -1,18 +1,12 @@
-
 import random
 
-# -----------------------------
-# Item Class
-# -----------------------------
 class Item:
     def __init__(self, name, strength_bonus):
         self.name = name
         self.strength_bonus = strength_bonus
 
 
-# -----------------------------
-# Player Class
-# -----------------------------
+
 class Player:
     def __init__(self, strength=5, hp=10, level=1):
         self.strength = strength
@@ -59,9 +53,6 @@ class Player:
         print("----------------------\n")
 
 
-# -----------------------------
-# Random Item Generator
-# -----------------------------
 def create_random_item():
     names = ["Glödande Dolk", "Månring", "Trollkarlens Sten", "Skuggkappa", "Järnsandal"]
     name = random.choice(names)
@@ -69,9 +60,7 @@ def create_random_item():
     return Item(name, bonus)
 
 
-# -----------------------------------------------------
-# STORY SCENE ENGINE
-# -----------------------------------------------------
+
 def generate_scene(player):
     scenes = [
         scene_fork_road,
@@ -83,3 +72,11 @@ def generate_scene(player):
     ]
     scene = random.choice(scenes)
     scene(player)
+
+
+
+def scene_fork_road(player):
+    print("\nDu kommer till ett vägskäl. Tre vägar leder vidare genom skogen.")
+    print("1) Ta den dimmiga stigen")
+    print("2) Följ den steniga vägen")
+    print("3) Gå mot ljudet av vatten")
