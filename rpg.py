@@ -80,3 +80,19 @@ def scene_fork_road(player):
     print("1) Ta den dimmiga stigen")
     print("2) Följ den steniga vägen")
     print("3) Gå mot ljudet av vatten")
+
+    choice = input("> ")
+
+    if choice == "1":
+        print("Den dimmiga stigen leder dig till... ett monster!")
+        encounter_monster(player)
+    elif choice == "2":
+        print("Du hittar en gammal staty. Den öppnar sig och avslöjar en kista!")
+        encounter_chest(player)
+    elif choice == "3":
+        print("Du glider på en hal sten och faller i en ström!")
+        encounter_trap(player)
+    else:
+        print("Ogiltigt val, du snubblar omkring... och möter ett monster ändå!")
+        encounter_monster(player)
+
