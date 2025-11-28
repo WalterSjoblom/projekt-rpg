@@ -96,3 +96,21 @@ def scene_fork_road(player):
         print("Ogiltigt val, du snubblar omkring... och möter ett monster ändå!")
         encounter_monster(player)
 
+def scene_ambush_monster(player):
+    print("\nEtt monster hoppar fram ur buskarna!")
+    encounter_monster(player)
+
+
+def scene_trap_pit(player):
+    print("\nDu trampar på lös mark och faller ner i en grop!")
+    encounter_trap(player)
+
+
+def scene_mysterious_old_man(player):
+    print("\nEn mystisk gammal man stoppar dig.")
+    print("'Jag kan hjälpa dig... eller kanske inte.'")
+    print("1) Be honom om styrka")
+    print("2) Ge honom ett av dina föremål")
+    print("3) Ignorera honom")
+
+    choice = input("> ")
