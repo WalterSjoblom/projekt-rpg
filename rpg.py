@@ -52,6 +52,7 @@ class Player:
                 print(f"{i+1}. {item.name} (+{item.strength_bonus} STR)")
         print("----------------------\n")
 
+
 def create_random_item():
     names = ["Glödande Dolk", "Månring", "Eldstav", "Skuggkappa", "Järnsandal"]
     name = random.choice(names)
@@ -69,7 +70,6 @@ def generate_scene(player):
         scene_find_chest
     ]
     random.choice(scenes)(player)
-
 
 
 def scene_fork_road(player):
@@ -153,11 +153,14 @@ def scene_find_chest(player):
     print("\nDu hittar en skimrande kista!")
     encounter_chest(player)
 
+
+
 def encounter_trap(player):
     damage = random.randint(1, 3)
     print(f"\nEn fälla aktiveras! Du tar {damage} skada!")
     player.hp -= damage
     check_game_over(player)
+
 
 def encounter_monster(player):
     monsters = ["Sfinx", "Varg", "Ogre", "Skuggvandrare", "Drakling"]
@@ -229,6 +232,7 @@ def encounter_chest(player):
     player.add_item(item)
 
 
+
 def check_game_over(player):
     if player.hp <= 0:
         print("\n💀 DU DOG! SPELET ÄR ÖVER.")
@@ -237,6 +241,7 @@ def check_game_over(player):
         print("\n🏆 DU NÅDDE LEVEL 10! DU VANN SPELET!")
         exit()
     return False
+
 
 def game_loop(player):
     while True:
@@ -259,6 +264,8 @@ def game_loop(player):
             player.print_inventory()
         else:
             print("Ogiltigt val!")
+
+
 
 def main():
     print("====================================")
