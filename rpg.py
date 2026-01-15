@@ -1,9 +1,17 @@
 import random
 
+# =====================================
+# KLASSER
+# =====================================
+
 class Item:
     def __init__(self, name, strength_bonus):
         self.name = name
         self.strength_bonus = strength_bonus
+
+# Kommentar:
+# Klassen Item representerar ett föremål som spelaren kan ha i sin ryggsäck.
+# Varje Item har ett namn och en styrkebonus som påverkar spelarens STR i strider.
 
 class Player:
     def __init__(self, name, strength=5, hp=10, level=1):
@@ -13,9 +21,11 @@ class Player:
         self.level = level
         self.inventory = []
 
+    # Beräknar spelarens totala styrka, inklusive bonusar från items
     def get_total_strength(self):
         return self.strength + sum(item.strength_bonus for item in self.inventory)
 
+    # Lägger till ett item i inventoryt, hanterar full ryggsäck
     def add_item(self, item):
         if len(self.inventory) < 5:
             self.inventory.append(item)
@@ -30,12 +40,14 @@ class Player:
             else:
                 print("Du lämnar föremålet...")
 
+    # Byter ut ett item i inventoryt
     def replace_item(self, index, new_item):
         if 0 <= index < len(self.inventory):
             old = self.inventory[index]
             self.inventory[index] = new_item
             print(f"\nDu byter ut '{old.name}' mot '{new_item.name}'!")
 
+    # Skriver ut spelarens egenskaper med separationslinjer och mellanrum
     def print_stats(self):
         print("\n====================================")
         print("          DINA EGENSKAPER           ")
@@ -45,6 +57,7 @@ class Player:
         print(f"LEVEL  : {self.level}")
         print("====================================\n")
 
+    # Skriver ut spelarens inventory med snygga rubriker och separationslinjer
     def print_inventory(self):
         print("\n====================================")
         print("             DIN RYGGSÄCK           ")
@@ -56,14 +69,29 @@ class Player:
                 print(f"{i+1}. {item.name} (+{item.strength_bonus} STR)")
         print("====================================\n")
 
+# Kommentar:
+# Player-klassen innehåller allt som behövs för att representera spelaren:
+# - Grundläggande egenskaper: HP, STR, LEVEL
+# - Inventory: en lista med Item-objekt
+# - Funktioner för att lägga till/ersätta items
+# - Funktioner för att skriva ut stats och inventory
 
+# =====================================
+# FUNKTIONER FÖR ATT SKAPA ITEMS OCH SCENER
+# =====================================
+
+# Skapar ett slumpmässigt item med namn och STR-bonus
 def create_random_item():
     names = ["Glödande Dolk", "Månring", "Eldstav", "Skuggkappa", "Järnsandal"]
     name = random.choice(names)
     bonus = random.randint(1, 4)
     return Item(name, bonus)
 
+# Kommentar:
+# Denna funktion används när spelaren hittar en kista.
+# Ett nytt Item skapas slumpmässigt med styrkebonus 1-4.
 
+# Slumpar fram vilken scen spelaren hamnar i
 def generate_scene(player):
     scenes = [
         scene_fork_road,
@@ -75,8 +103,14 @@ def generate_scene(player):
     ]
     random.choice(scenes)(player)
 
+# Kommentar:
+# generate_scene väljer slumpmässigt en av flera scener och kör den.
+# Detta ger variation i äventyret och gör att spelaren inte vet vad som väntar.
 
-# SCENER
+# =====================================
+# SCENER / MÖTEN
+# =====================================
+
 def scene_fork_road(player):
     print("\n------------------------------------")
     print("        VÄGSKÄL I SKOGEN")
@@ -97,6 +131,10 @@ def scene_fork_road(player):
         print("Du tvekar… men ett monster hittar dig!")
         encounter_monster(player)
 
+# Kommentar:
+# En typisk scen där spelaren får flera val.
+# Valen påverkar vad som händer: monster, fälla eller kista.
+# Om spelaren anger ogiltig input får hen ändå en konsekvens (monster).
 
 def scene_ambush_monster(player):
     print("\n------------------------------------")
@@ -105,6 +143,8 @@ def scene_ambush_monster(player):
     print("\nEtt monster hoppar fram ur buskarna och stirrar hotfullt på dig!\n")
     encounter_monster(player)
 
+# Kommentar:
+# Enkel scen som alltid leder till ett monster-möte.
 
 def scene_trap_pit(player):
     print("\n------------------------------------")
@@ -113,6 +153,9 @@ def scene_trap_pit(player):
     print("\nMarken ser stabil ut, men plötsligt sjunker den under dina fötter...\n")
     encounter_trap_interactive(player)
 
+# Kommentar:
+# Tidigare var detta en enkel HP-reducering, nu är det ett interaktivt möte
+# där spelaren får tre val för att försöka undvika fällan.
 
 def scene_mysterious_old_man(player):
     print("\n------------------------------------")
@@ -141,6 +184,9 @@ def scene_mysterious_old_man(player):
         print("Du går vidare utan att lyssna… men marken börjar skaka under dig.")
         encounter_trap_interactive(player)
 
+# Kommentar:
+# Detta är en interaktiv scen med flera val som påverkar styrka, inventory eller träff av fälla.
+# Den visar hur story-element kan kombineras med strids-/fälllogik.
 
 def scene_dark_cave(player):
     print("\n------------------------------------")
@@ -164,7 +210,6 @@ def scene_dark_cave(player):
         print("Stenar faller från taket och du måste agera snabbt!")
         encounter_trap_interactive(player)
 
-
 def scene_find_chest(player):
     print("\n------------------------------------")
     print("               GAMMAL KISTA")
@@ -172,8 +217,14 @@ def scene_find_chest(player):
     print("\nDu hittar en gammal kista som glimmar till i skenet från solen eller facklan.\n")
     encounter_chest_interactive(player)
 
+# Kommentar:
+# Alla scener använder nu interaktiva encounters istället för snabba HP-förändringar.
+# Valen är längre beskrivningar för bättre storykänsla.
 
+# =====================================
 # INTERAKTIVA ENCOUNTERS
+# =====================================
+
 def encounter_trap_interactive(player):
     print("\n------------------------------------")
     print("               FALLFÄLLA")
@@ -215,6 +266,9 @@ def encounter_trap_interactive(player):
     print("Du tar dig till slut bort från fällan.")
     check_game_over(player)
 
+# Kommentar:
+# Trappan/fällan är nu interaktiv med flera steg.
+# Spelaren får 3 val på varje steg, och slumpmässiga konsekvenser avgör om hen skadas eller inte.
 
 def encounter_chest_interactive(player):
     print("\n------------------------------------")
@@ -257,6 +311,13 @@ def encounter_chest_interactive(player):
 
     check_game_over(player)
 
+# Kommentar:
+# Kistan har nu flera steg där spelaren får välja mellan olika sätt att interagera.
+# Utfallet påverkas av slump + inventory, och spelaren kan skadas eller få ett item.
+
+# =====================================
+# MONSTER ENCOUNTERS
+# =====================================
 
 def encounter_monster(player):
     monsters = ["Sfinx", "Varg", "Ogre", "Skuggvandrare", "Drakling"]
@@ -321,6 +382,15 @@ def encounter_monster(player):
         player.hp = 0
         check_game_over(player)
 
+# Kommentar:
+# Monster-encounters är flerstegs-interaktiva med tre val per steg.
+# Spelaren kan attackera, distrahera eller smyga.
+# Resultatet avgörs av slump och spelarens totala styrka.
+# Max 4 steg per encounter. Monster eller spelare kan dö.
+
+# =====================================
+# HUVUDLOOP OCH CHECK
+# =====================================
 
 def check_game_over(player):
     if player.hp <= 0:
@@ -331,6 +401,9 @@ def check_game_over(player):
         exit()
     return False
 
+# Kommentar:
+# Kontrollera om spelaren har dött eller vunnit spelet.
+# Används efter alla encounters.
 
 def game_loop(player):
     while True:
@@ -354,6 +427,13 @@ def game_loop(player):
         else:
             print("Ogiltigt val!")
 
+# Kommentar:
+# Huvudloopen som kör spelet tills spelaren vinner eller dör.
+# Spelaren kan kolla stats, inventory eller gå vidare till nästa scen.
+
+# =====================================
+# MAIN
+# =====================================
 
 def main():
     print("====================================")
@@ -379,7 +459,17 @@ def main():
     # Starta spelet
     game_loop(player)
 
+# Kommentar:
+# main() startar spelet, frågar spelaren om hen vill anta utmaningen.
+# Skapar spelaren och startar game_loop.
+# Detta är ingångspunkten för programmet.
 
-# Starta spelet
+# =====================================
+# STARTA SPELET
+# =====================================
+
 if __name__ == "__main__":
     main()
+
+# Kommentar:
+# Detta säkerställer att spelet startar endast när filen körs direkt.
