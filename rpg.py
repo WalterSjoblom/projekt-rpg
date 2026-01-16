@@ -1,15 +1,13 @@
 import random
 
-# =====================================
+
 # KLASSER
-# =====================================
 
 class Item:
     def __init__(self, name, strength_bonus):
         self.name = name
         self.strength_bonus = strength_bonus
 
-# Kommentar:
 # Klassen Item representerar ett föremål som spelaren kan ha i sin ryggsäck.
 # Varje Item har ett namn och en styrkebonus som påverkar spelarens STR i strider.
 
@@ -78,7 +76,7 @@ class Player:
 
 # =====================================
 # FUNKTIONER FÖR ATT SKAPA ITEMS OCH SCENER
-# =====================================
+
 
 # Skapar ett slumpmässigt item med namn och STR-bonus
 def create_random_item():
@@ -109,7 +107,6 @@ def generate_scene(player):
 
 # =====================================
 # SCENER / MÖTEN
-# =====================================
 
 def scene_fork_road(player):
     print("\n------------------------------------")
@@ -223,7 +220,7 @@ def scene_find_chest(player):
 
 # =====================================
 # INTERAKTIVA ENCOUNTERS
-# =====================================
+
 
 def encounter_trap_interactive(player):
     print("\n------------------------------------")
@@ -317,7 +314,7 @@ def encounter_chest_interactive(player):
 
 # =====================================
 # MONSTER ENCOUNTERS
-# =====================================
+
 
 def encounter_monster(player):
     monsters = ["Sfinx", "Varg", "Ogre", "Skuggvandrare", "Drakling"]
@@ -390,7 +387,7 @@ def encounter_monster(player):
 
 # =====================================
 # HUVUDLOOP OCH CHECK
-# =====================================
+
 
 def check_game_over(player):
     if player.hp <= 0:
@@ -433,7 +430,7 @@ def game_loop(player):
 
 # =====================================
 # MAIN
-# =====================================
+
 
 def main():
     print("====================================")
@@ -466,7 +463,6 @@ def main():
 
 # =====================================
 # STARTA SPELET
-# =====================================
 
 if __name__ == "__main__":
     main()
